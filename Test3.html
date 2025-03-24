@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latein Arbeitsblatt: Erste Deklination</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        .task { margin-bottom: 10px; }
+        .input-field { width: 100%; padding: 5px; margin-top: 5px; }
+        .button { margin-top: 5px; padding: 5px 10px; cursor: pointer; }
+        .solution { display: none; color: green; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Latein: Erste Deklination – Übersetzungsübungen</h2>
+        <p>Übersetze die folgenden lateinischen Sätze ins Deutsche:</p>
+        
+        <div id="exercises"></div>
+        
+        <button class="button" onclick="checkAnswers()">Überprüfen</button>
+        <button class="button" onclick="resetAnswers()">Zurücksetzen</button>
+        <button class="button" onclick="showSolutions()">Lösungsanzeige</button>
+    </div>
+
+    <script>
+        const exercises = [
+            { latin: "Puella cantat.", solution: "Das Mädchen singt." },
+            { latin: "Agricola laborat.", solution: "Der Bauer arbeitet." },
+            { latin: "Femina rosas amat.", solution: "Die Frau liebt Rosen." },
+            { latin: "Nauta ventum sentit.", solution: "Der Seemann spürt den Wind." },
+            { latin: "Poeta fabulam narrat.", solution: "Der Dichter erzählt eine Geschichte." },
+            { latin: "Amica me visitat.", solution: "Die Freundin besucht mich." },
+            { latin: "Terra magna est.", solution: "Die Erde ist groß." },
+            { latin: "Vita est pulchra.", solution: "Das Leben ist schön." },
+            { latin: "Insula in mari est.", solution: "Die Insel ist im Meer." },
+            { latin: "Puella laeta ridet.", solution: "Das fröhliche Mädchen lacht." }
+        ];
+
+        function loadExercises() {
+            const container = document.getElementById("exercises");
+            container.innerHTML = "";
+            exercises.forEach((ex, index) => {
+                container.innerHTML += `
+                    <div class="task">
+                        <p><strong>${ex.latin}</strong></p>
+                        <input type="text" class="input-field" id="answer${index}" placeholder="Übersetzung eingeben">
+                        <p class="solution" id="solution${index}">${ex.solution}</p>
+                    </div>`;
+            });
+        }
+        
+        function checkAnswers() {
+            exercises.forEach((ex, index) => {
+                const userAnswer = document.getElementById(`answer${index}`).value.trim();
+                const correctAnswer = ex.solution;
+                if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                    document.getElementById(`answer${index}`).style.backgroundColor = "lightgreen";
+                } else {
+                    document.getElementById(`answer${index}`).style.backgroundColor = "lightcoral";
+                }
+            });
+        }
+        
+        function resetAnswers() {
+            exercises.forEach((_, index) => {
+                document.getElementById(`answer${index}`).value = "";
+                document.getElementById(`answer${index}`).style.backgroundColor = "white";
+                document.getElementById(`solution${index}`).style.display = "none";
+            });
+        }
+        
+        function showSolutions() {
+            exercises.forEach((_, index) => {
+                document.getElementById(`solution${index}`).style.display = "block";
+            });
+        }
+        
+        loadExercises();
+    </script>
+</body>
+</html>
